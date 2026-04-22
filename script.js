@@ -1,5 +1,8 @@
 const tiltCard = document.querySelector("[data-tilt]");
 const contactGroups = Array.from(document.querySelectorAll(".cta-primary-wrap"));
+const siteHeader = document.querySelector(".site-header");
+const navToggle = document.querySelector(".nav-toggle");
+const siteNav = document.querySelector(".site-nav");
 
 window.addEventListener("DOMContentLoaded", () => {
   document.body.classList.add("is-loaded");
@@ -143,5 +146,52 @@ if (contactGroups.length) {
       const panel = group.querySelector(".cta-contact-popover");
       ensureContactPanelVisible(panel);
     });
+  });
+}
+
+if (siteHeader && navToggle && siteNav) {
+  const mobileNavQuery = window.matchMedia("(max-width: 720px)");
+
+  const setNavOpen = (isOpen) => {
+    siteHeader.classList.toggle("is-nav-open", isOpen);
+    navToggle.setAttribute("aria-expanded", String(isOpen));
+  };
+
+  navToggle.addEventListener("click", () => {
+    const isOpen = navToggle.getAttribute("aria-expanded") === "true";
+    setNavOpen(!isOpen);
+  });
+
+  siteNav.querySelectorAll("a").forEach((link) => {
+    link.addEventListener("click", () => {
+      if (mobileNavQuery.matches) {
+        setNavOpen(false);
+      }
+    });
+  });
+
+  document.addEventListener("click", (event) => {
+    const clickTarget = event.target;
+
+    if (
+      mobileNavQuery.matches &&
+      clickTarget instanceof Node &&
+      !siteHeader.contains(clickTarget)
+    ) {
+      setNavOpen(false);
+    }
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && navToggle.getAttribute("aria-expanded") === "true") {
+      setNavOpen(false);
+      navToggle.focus();
+    }
+  });
+
+  mobileNavQuery.addEventListener("change", (event) => {
+    if (!event.matches) {
+      setNavOpen(false);
+    }
   });
 }
