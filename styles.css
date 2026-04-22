@@ -1948,12 +1948,12 @@ body.is-loaded .hero-visual {
   }
 
   .hero {
-    padding-top: 0.85rem;
+    padding-top: 0.8rem;
   }
 
   h1 {
     max-width: 100%;
-    font-size: clamp(2.6rem, 12vw, 4rem);
+    font-size: clamp(2.35rem, 10.4vw, 3.55rem);
   }
 
   .subhead {
@@ -2188,7 +2188,18 @@ body.is-loaded .hero-visual {
   }
 
   .proof-line {
-    align-items: flex-start;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 0.55rem 0.7rem;
+    align-items: start;
+    margin-top: 1rem;
+    padding-top: 0.95rem;
+    font-size: 0.93rem;
+    line-height: 1.62;
+  }
+
+  .status-dot {
+    margin-top: 0.22rem;
   }
 
   .site-footer {
