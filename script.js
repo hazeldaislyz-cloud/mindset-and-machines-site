@@ -1,6 +1,5 @@
 const tiltCard = document.querySelector("[data-tilt]");
-const auditTrigger = document.querySelector(".cta-trigger");
-const contactPanel = document.querySelector(".cta-contact-popover");
+const contactGroups = Array.from(document.querySelectorAll(".cta-primary-wrap"));
 
 window.addEventListener("DOMContentLoaded", () => {
   document.body.classList.add("is-loaded");
@@ -25,14 +24,14 @@ if (tiltCard && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) 
   });
 }
 
-if (auditTrigger && contactPanel) {
-  const ensureContactPanelVisible = () => {
-    if (contactPanel.hidden) {
+if (contactGroups.length) {
+  const ensureContactPanelVisible = (panel) => {
+    if (!panel || panel.hidden) {
       return;
     }
 
     const viewportGap = 16;
-    const panelBounds = contactPanel.getBoundingClientRect();
+    const panelBounds = panel.getBoundingClientRect();
 
     if (panelBounds.top < viewportGap) {
       window.scrollBy({
@@ -50,39 +49,99 @@ if (auditTrigger && contactPanel) {
     }
   };
 
-  const setContactPanel = (isOpen) => {
-    auditTrigger.setAttribute("aria-expanded", String(isOpen));
-    contactPanel.hidden = !isOpen;
+  const closeContactGroup = (group, restoreFocus = false) => {
+    const trigger = group.querySelector(".cta-trigger");
+    const panel = group.querySelector(".cta-contact-popover");
 
-    if (isOpen) {
-      requestAnimationFrame(ensureContactPanelVisible);
+    if (!trigger || !panel) {
+      return;
+    }
+
+    trigger.setAttribute("aria-expanded", "false");
+    panel.hidden = true;
+
+    if (restoreFocus) {
+      trigger.focus();
     }
   };
 
-  auditTrigger.addEventListener("click", () => {
-    const isOpen = auditTrigger.getAttribute("aria-expanded") === "true";
-    setContactPanel(!isOpen);
+  const setContactGroup = (group, isOpen) => {
+    const trigger = group.querySelector(".cta-trigger");
+    const panel = group.querySelector(".cta-contact-popover");
+
+    if (!trigger || !panel) {
+      return;
+    }
+
+    contactGroups.forEach((currentGroup) => {
+      if (currentGroup !== group) {
+        closeContactGroup(currentGroup);
+      }
+    });
+
+    trigger.setAttribute("aria-expanded", String(isOpen));
+    panel.hidden = !isOpen;
+
+    if (isOpen) {
+      requestAnimationFrame(() => ensureContactPanelVisible(panel));
+    }
+  };
+
+  contactGroups.forEach((group) => {
+    const trigger = group.querySelector(".cta-trigger");
+
+    if (!trigger) {
+      return;
+    }
+
+    trigger.addEventListener("click", () => {
+      const isOpen = trigger.getAttribute("aria-expanded") === "true";
+      setContactGroup(group, !isOpen);
+    });
   });
 
   document.addEventListener("click", (event) => {
     const clickTarget = event.target;
 
-    if (
-      clickTarget instanceof Node &&
-      !contactPanel.hidden &&
-      !contactPanel.contains(clickTarget) &&
-      !auditTrigger.contains(clickTarget)
-    ) {
-      setContactPanel(false);
+    if (!(clickTarget instanceof Node)) {
+      return;
     }
+
+    contactGroups.forEach((group) => {
+      const panel = group.querySelector(".cta-contact-popover");
+      const trigger = group.querySelector(".cta-trigger");
+
+      if (
+        panel &&
+        trigger &&
+        !panel.hidden &&
+        !panel.contains(clickTarget) &&
+        !trigger.contains(clickTarget)
+      ) {
+        closeContactGroup(group);
+      }
+    });
   });
 
   document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape" && !contactPanel.hidden) {
-      setContactPanel(false);
-      auditTrigger.focus();
+    if (event.key !== "Escape") {
+      return;
+    }
+
+    const openGroup = contactGroups.find((group) => {
+      const panel = group.querySelector(".cta-contact-popover");
+      return panel && !panel.hidden;
+    });
+
+    if (openGroup) {
+      closeContactGroup(openGroup, true);
     }
   });
 
-  window.addEventListener("resize", ensureContactPanelVisible);
+  window.addEventListener("resize", () => {
+    contactGroups.forEach((group) => {
+      const panel = group.querySelector(".cta-contact-popover");
+      ensureContactPanelVisible(panel);
+    });
+  });
 }

@@ -17,16 +17,30 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <div class="page-shell">
+    <div class="page-shell" id="top">
+      <header class="site-header">
+        <div class="container header-shell">
+          <a class="site-brand" href="#top" aria-label="Mindset and Machines home">
+            <span class="site-brand-mark">M</span>
+            <span class="site-brand-text">
+              <strong>Mindset &amp; Machines</strong>
+              <small>AI &amp; Automation for Kenyan SMEs</small>
+            </span>
+          </a>
+
+          <nav class="site-nav" aria-label="Primary navigation">
+            <a href="#case-study">Case study</a>
+            <a href="#what-i-build">Services</a>
+            <a href="#about">About</a>
+            <a href="#audit">Contact</a>
+          </nav>
+        </div>
+      </header>
+
       <main>
         <section class="hero" aria-labelledby="hero-title">
           <div class="container hero-grid">
             <div class="hero-copy reveal">
-              <div class="brand-lockup" aria-label="Mindset and Machines">
-                <span class="brand-mark">M</span>
-                <span class="brand-name">Mindset &amp; Machines</span>
-              </div>
-
               <p class="eyebrow">AI &amp; Automation for Kenyan SMEs</p>
 
               <h1 id="hero-title">
@@ -41,11 +55,57 @@
               </p>
 
               <div class="hero-actions">
-                <a class="button button-primary" href="#case-study">
-                  See the live case study
-                </a>
-                <a class="button button-secondary" href="#audit">
-                  Request an audit
+                <div class="cta-primary-wrap">
+                  <button
+                    class="button button-primary cta-trigger"
+                    type="button"
+                    aria-expanded="false"
+                    aria-controls="hero-contact-options-panel"
+                  >
+                    Request a workflow audit
+                  </button>
+
+                  <div
+                    class="cta-contact-popover"
+                    id="hero-contact-options-panel"
+                    hidden
+                  >
+                    <p class="cta-contact-label">Contact options</p>
+
+                    <div class="cta-contact-list">
+                      <a
+                        class="cta-contact-link"
+                        href="https://wa.me/254725648427?text=Hi%20Daisy%2C%20I%27d%20like%20to%20request%20a%20workflow%20audit."
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        <span>Chat on WhatsApp</span>
+                        <small>Start a pre-filled audit request on WhatsApp</small>
+                      </a>
+
+                      <a
+                        class="cta-contact-link"
+                        href="mailto:MindsetandMachines@outlook.com?subject=Workflow%20Audit%20Request&body=Hi%20Daisy%2C%20I%27d%20like%20to%20request%20a%20workflow%20audit."
+                      >
+                        <span>Send an email</span>
+                        <small>Open an email draft for a workflow audit</small>
+                      </a>
+
+                      <a
+                        class="cta-contact-link"
+                        href="https://www.linkedin.com/in/daisymutegi/"
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        <span>Connect on LinkedIn</span>
+                        <small>View Daisy Mutegi on LinkedIn</small>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
+                <a class="button button-secondary" href="#case-study">
+                  See the Bikes &amp; Accessories KE case
                 </a>
               </div>
 
@@ -59,16 +119,18 @@
 
             <div class="hero-visual reveal">
               <div class="visual-shell" data-tilt>
-                <div class="signal-card signal-card-whatsapp">
-                  <span class="signal-label">Inbound channel</span>
-                  <strong>WhatsApp inquiry</strong>
-                  <p>Stock check, pricing, delivery, and product questions.</p>
-                </div>
+                <div class="signal-grid" aria-hidden="true">
+                  <div class="signal-card signal-card-whatsapp">
+                    <span class="signal-label">Inbound channel</span>
+                    <strong>WhatsApp inquiry</strong>
+                    <p>Stock check, pricing, delivery, and product questions.</p>
+                  </div>
 
-                <div class="signal-card signal-card-instagram">
-                  <span class="signal-label">Inbound channel</span>
-                  <strong>Instagram DM</strong>
-                  <p>Product discovery, fit questions, and buying intent.</p>
+                  <div class="signal-card signal-card-instagram">
+                    <span class="signal-label">Inbound channel</span>
+                    <strong>Instagram DM</strong>
+                    <p>Product discovery, fit questions, and buying intent.</p>
+                  </div>
                 </div>
 
                 <div class="system-panel">
@@ -557,14 +619,14 @@
                       class="button button-primary cta-trigger"
                       type="button"
                       aria-expanded="false"
-                      aria-controls="contact-options-panel"
+                      aria-controls="footer-contact-options-panel"
                     >
                       Request a workflow audit
                     </button>
 
                     <div
                       class="cta-contact-popover"
-                      id="contact-options-panel"
+                      id="footer-contact-options-panel"
                       hidden
                     >
                       <p class="cta-contact-label">Contact options</p>
@@ -577,7 +639,7 @@
                           rel="noreferrer"
                         >
                           <span>Chat on WhatsApp</span>
-                          <small>Replace with your WhatsApp link</small>
+                          <small>Start a pre-filled audit request on WhatsApp</small>
                         </a>
 
                         <a
@@ -585,7 +647,7 @@
                           href="mailto:MindsetandMachines@outlook.com?subject=Workflow%20Audit%20Request&body=Hi%20Daisy%2C%20I%27d%20like%20to%20request%20a%20workflow%20audit."
                         >
                           <span>Send an email</span>
-                          <small>Replace with your email address</small>
+                          <small>Open an email draft for a workflow audit</small>
                         </a>
 
                         <a
@@ -595,14 +657,9 @@
                           rel="noreferrer"
                         >
                           <span>Connect on LinkedIn</span>
-                          <small>Replace with your LinkedIn profile URL</small>
+                          <small>View Daisy Mutegi on LinkedIn</small>
                         </a>
                       </div>
-
-                      <p class="cta-contact-note">
-                        Replace these placeholder links in
-                        <code>index.html</code> before launch.
-                      </p>
                     </div>
                   </div>
 
@@ -620,6 +677,37 @@
           </div>
         </section>
       </main>
+
+      <footer class="site-footer">
+        <div class="container footer-shell">
+          <div class="footer-branding">
+            <p class="footer-name">Mindset &amp; Machines</p>
+            <p class="footer-tagline">AI &amp; Automation for Kenyan SMEs</p>
+          </div>
+
+          <div class="footer-links" aria-label="Footer links">
+            <a
+              href="https://wa.me/254725648427?text=Hi%20Daisy%2C%20I%27d%20like%20to%20request%20a%20workflow%20audit."
+              target="_blank"
+              rel="noreferrer"
+            >
+              WhatsApp
+            </a>
+            <a
+              href="mailto:MindsetandMachines@outlook.com?subject=Workflow%20Audit%20Request&body=Hi%20Daisy%2C%20I%27d%20like%20to%20request%20a%20workflow%20audit."
+            >
+              Email
+            </a>
+            <a
+              href="https://www.linkedin.com/in/daisymutegi/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              LinkedIn
+            </a>
+          </div>
+        </div>
+      </footer>
     </div>
 
     <script src="script.js"></script>
